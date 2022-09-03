@@ -1,5 +1,7 @@
 package java_console_blackjack;
 
+import java.util.Scanner;
+
 public class Shell {
 
     private static void suitsLine() {
@@ -45,13 +47,35 @@ public class Shell {
         suitsLine();
     }
 
-    public static void bet(){
-        System.out.println("\n-------------------------------------");
-        System.out.println("-----      Place Your Bets      -----");
+    public static double getBet(double bank) {
+        double bet = -1;
+        boolean pass = false;
+        Scanner in = new Scanner(System.in);
+        while (!pass) {
+            try {
+                System.out.println("\n-------------------------------------");
+                System.out.print("Place Your Bet : $");
+                in = new Scanner(System.in);
+                bet = in.nextDouble();
+                if(bet <= bank){
+                    pass = true;
+                    in.close();
+                }else{
+                    System.out.println("-------------------------------------");
+                    System.out.printf("Bet Too Large Bank = $%.2f",bank);
+                }
+            } catch (Exception e) {}
+        }
         System.out.println("-------------------------------------");
+        System.out.printf("------ You Bet : $%.2f%n",bet);
+        return bet;
     }
 
-    public static void dealing() {
-        System.out.println("\n*-*-*          Dealing          *-*-*");
+    public static double dispBank(double bank){
+        System.out.println("-------------------------------------");
+        System.out.printf("---- Your Bank : $%.2f%n",bank);
+        System.out.println("-------------------------------------");
+        return bank;
     }
+
 }

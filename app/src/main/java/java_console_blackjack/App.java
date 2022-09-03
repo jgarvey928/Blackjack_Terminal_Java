@@ -3,19 +3,22 @@
  */
 package java_console_blackjack;
 
+
 public class App {
 
     public static void main(String[] args) {
 
         // Top Banner JSGarvey's Blackjack
+        double bank = 500;
         Shell.topGUI();
-        Shell.bet();
-
-        // Blank Lines
-        for (int i = 0; i < 6; i++)
-            System.out.println();
+        double bet = Shell.getBet(bank);
+        bank -= bet;
+        Shell.dispBank(bank);
 
         // Bottom banner
         Shell.bottomGUI();
+        
     }
+
 }
+
