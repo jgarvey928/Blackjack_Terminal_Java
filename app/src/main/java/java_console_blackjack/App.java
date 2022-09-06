@@ -3,20 +3,36 @@
  */
 package java_console_blackjack;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class App {
 
     public static void main(String[] args) {
 
-        // Top Banner JSGarvey's Blackjack
-        double bank = 500;
-        Shell.topGUI();
-        double bet = Shell.getBet(bank);
-        bank -= bet;
-        Shell.dispBank(bank);
+        Shell shell = new Shell();
+        Dealer dealer = new Dealer();
 
-        // Bottom banner
-        Shell.bottomGUI();
+        Deck deck = new Deck();
+
+        double bank = 50;
+        
+        shell.setDeck(deck);
+
+        // Top Banner JSGarvey's Blackjack
+        shell.topGUI();
+
+        shell.dispBank(bank); 
+        double bet = shell.getBet(bank);
+        bank -= bet;
+        shell.dispBank(bank);
+
+        Card dealerCard01 = deck.getCard(0);
+        Card dealerCard02 = deck.getCard(1);
+        ArrayList<Card> dealerHand = new ArrayList<Card>(Arrays.asList(dealerCard01, dealerCard02));
+        dealer.setHand(dealerHand);
+        dealer.dealersTurn();
+
         
     }
 
