@@ -1,22 +1,16 @@
 package java_console_blackjack;
 
 public class Card {
-    String rank;
-    int cardValue;
-    int suitValue;
-    char suit;
-
-    Card(){
-        this.rank = null;
-        this.suitValue = -1;
-        this.cardValue = -1;
-        char suit = 0;
-    }
+    String rank = null;
+    int cardValue = -1;
+    int aceValue = -1;
+    int suitValue = -1;
+    char suit = 0;
 
     public void setRank(String value){
         this.rank = value;
-        switch(rank){
-            case "A" : cardValue = 1; break;
+        switch(value){
+            case "A" : cardValue = 11; aceValue = 1; break;
             case "2" : cardValue = 2; break;
             case "3" : cardValue = 3; break;
             case "4" : cardValue = 4; break;
@@ -41,6 +35,14 @@ public class Card {
         return this.rank;
     }
 
+    public int getValue(){
+        return cardValue;
+    }
+
+    public int getAceValue(){
+        return aceValue;
+    }
+
     public char getSuit(){
         return this.suit;
     }
@@ -49,12 +51,8 @@ public class Card {
         return this.suitValue;
     }
 
-    public int getValue(){
-        return cardValue;
-    }
-
-    public void dispCard(){
-        System.out.println(rank + getSuit());
+    public String getCardString(){
+        return rank + getSuit();
     }
 
 }

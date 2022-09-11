@@ -2,13 +2,38 @@ package java_console_blackjack;
 
 import java.util.ArrayList;
 
-public class Dealer {
-    ArrayList<Card> cards = new ArrayList<Card>();
-    double HIT_ON = 16;
-    double BUST_ON = 22;
+public class Player {
 
-    public void addCard(Card card){
-        cards.add(card);
+    String name;
+    double bank;
+    ArrayList<Card> cards;
+
+    Player(String name, double bank){
+        this.name = name;
+        this.bank = bank;
+        cards = new ArrayList<Card>();
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public double getBank(){
+        if(bank < 0.004999999999999)
+            return 0.0;
+        return this.bank;
+    }
+
+    public void addToBank(double money){
+        this.bank += money;
+    }
+
+    public void subFromBank(double money){
+        this.bank -= money;
+    }
+
+    public void addCard(Decks decks){
+        cards.add(decks.dealCard());
     }
 
     public void clearCards(){
@@ -41,7 +66,8 @@ public class Dealer {
     }
 
     public void dealTo(Decks decks){
-        addCard(decks.dealCard());
-        addCard(decks.dealCard());
+        addCard(decks);
+        addCard(decks);
     }
+
 }

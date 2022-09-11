@@ -1,10 +1,12 @@
 package java_console_blackjack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Deck {
 
     ArrayList<Card> deck = new ArrayList<Card>();
+    ArrayList<Card> discards = new ArrayList<Card>();
 
     Deck() {
         createDeck();
@@ -45,8 +47,31 @@ public class Deck {
 
     }
 
-    Card getCard(int index) {
-        return (Card) this.deck.get(index);
+    public ArrayList<Card> getCards(){
+        return deck;
+    }
+
+    public void shuffle(){
+
+        if(!discards.isEmpty()){
+            deck.addAll(discards);
+            discards.clear();
+        }
+        Collections.shuffle(deck);
+    }
+
+    public Card getCard(int index) {
+        return this.deck.get(index);
+    }
+
+    public Card dealCard(){
+        Card topCard = this.deck.remove(0);
+        discards.add(topCard);
+        return topCard;
+    }
+
+    public int size(){
+        return deck.size();
     }
 
 }

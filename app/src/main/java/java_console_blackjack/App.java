@@ -8,32 +8,66 @@ import java.util.Arrays;
 
 public class App {
 
+    static Shell shell = new Shell();
+    static Dealer dealer = new Dealer();
+    static Player player = new Player("John", 50);
+    static Decks cards = new Decks(3);
+
     public static void main(String[] args) {
-
-        Shell shell = new Shell();
-        Dealer dealer = new Dealer();
-
-        Deck deck = new Deck();
-
-        double bank = 50;
-        
-        shell.setDeck(deck);
 
         // Top Banner JSGarvey's Blackjack
         shell.topGUI();
 
-        shell.dispBank(bank); 
-        double bet = shell.getBet(bank);
-        bank -= bet;
-        shell.dispBank(bank);
+        // dealer.dealTo(cards);
+        // shell.dispHand(dealer.getCards(), false);
 
-        Card dealerCard01 = deck.getCard(0);
-        Card dealerCard02 = deck.getCard(1);
-        ArrayList<Card> dealerHand = new ArrayList<Card>(Arrays.asList(dealerCard01, dealerCard02));
-        dealer.setHand(dealerHand);
-        dealer.dealersTurn();
+        // player.dealTo(cards);
+        // player.addCard(cards);
+        // shell.dispHand(player.getCards(), true);
 
+        // System.out.println(player.getNumbCards());
+        // System.out.println(player.getCardsString());
+        // System.out.println(player.getCardsValue());
+
+        // shell.allCards(cards);
+        // System.out.println("\n"+cards.size()+"\n");
+        // cards.shuffle();
+        // shell.allCards(cards);
+        // System.out.println("\n"+cards.size());   
         
+        cards.shuffle();
+        bet();
+        turn();
+
+    }
+
+    public static void bet(){
+        double bet = shell.getBet(player.getBank());
+        player.subFromBank(bet);
+        shell.dispBank(player.getBank());
+    }
+
+    private static void turn(){
+        dealer.dealTo(cards);
+        shell.dispDealerHand(dealer.getCards(), false);
+        player.dealTo(cards);
+        shell.dispPlayersHand(player.getCards());
+        boolean hit = shell.getHit();
+        while(hit){
+            player.addCard(cards);
+            shell.dispPlayersHand(player.getCards());
+            if(player.getCardsValue() < 21){
+                hit = shell.getHit();
+            }else{
+                hit = false;
+            }
+        }
+        if(player.getCardsValue() > 21){
+            shell.bust();
+            shell.dispBank(player.getBank());
+            return;
+        }
+        shell.dispPlayersHand(player.getCards());
     }
 
 }
